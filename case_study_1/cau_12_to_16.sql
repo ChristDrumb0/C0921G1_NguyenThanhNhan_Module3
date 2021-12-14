@@ -1,17 +1,36 @@
--- cau 5: 
--- Hiển thị ma_khach_hang, ho_ten, ten_loai_khach, ma_hop_dong, ten_dich_vu, ngay_lam_hop_dong, ngay_ket_thuc, tong_tien 
--- (Với tổng tiền được tính theo công thức như sau: Chi Phí Thuê + Số Lượng * Giá, với Số Lượng và Giá là từ bảng dich_vu_di_kem, hop_dong_chi_tiet) 
--- cho tất cả các khách hàng đã từng đặt phòng. (những khách hàng nào chưa từng đặt phòng cũng phải hiển thị ra).
+-- cau 12: 
+-- Hiển thị thông tin ma_hop_dong, ho_ten (nhân viên), ho_ten (khách hàng), so_dien_thoai (khách hàng), ten_dich_vu, so_luong_dich_vu_di_kem (được tính dựa trên việc sum so_luong ở dich_vu_di_kem), 
+-- tien_dat_coc của tất cả các dịch vụ đã từng được khách hàng đặt vào 3 tháng cuối năm 2020 nhưng chưa từng được khách hàng đặt vào 6 tháng đầu năm 2021.
 
 use furama_management;
-select 	khach_hang.ma_khach_hang, khach_hang.ho_ten_khach_hang, loai_khach.ten_loai_khach, hop_dong.ma_hop_dong, dich_vu.ten_dich_vu, hop_dong.ngay_lam_hop_dong, 
-hop_dong.ngay_ket_thuc, sum(IFNULL(dich_vu.chi_phi_thue, 0) + IFNULL(hop_dong_chi_tiet.so_luong, 0) * IFNULL(dich_vu_di_kem.gia, 0)) as tong_tien 
-from (((((khach_hang
-left join hop_dong on  khach_hang.ma_khach_hang = hop_dong.ma_khach_hang)
-left join dich_vu on  dich_vu.ma_dich_vu = hop_dong.ma_dich_vu)
-left join loai_khach on loai_khach.ma_loai_khach = khach_hang.ma_loai_khach)
-left join hop_dong_chi_tiet on hop_dong_chi_tiet.ma_hop_dong = hop_dong.ma_hop_dong)
-left join dich_vu_di_kem on dich_vu_di_kem.ma_dich_vu_di_kem = hop_dong_chi_tiet.ma_dich_vu_di_kem)
--- where 
-group by hop_dong.ma_hop_dong
-order by khach_hang.ma_khach_hang;
+select* 	
+from khach_hang kh
+join hop_dong hd on hd.ma_khach_hang = kh.ma_khach_hang
+join nhan_vien nv on hd.ma_nhan_vien = nv.ma_nhan_vien
+join hop_dong_chi_tiet hdct on hdct.ma_hop_dong = hd.ma_hop_dong
+
+;
+
+-- cau 13:
+-- Hiển thị thông tin các Dịch vụ đi kèm được sử dụng nhiều nhất bởi các Khách hàng đã đặt phòng. (Lưu ý là có thể có nhiều dịch vụ có số lần sử dụng nhiều như nhau).
+
+
+
+
+-- cau 14:
+-- Hiển thị thông tin tất cả các Dịch vụ đi kèm chỉ mới được sử dụng một lần duy nhất. 
+-- Thông tin hiển thị bao gồm ma_hop_dong, ten_loai_dich_vu, ten_dich_vu_di_kem, so_lan_su_dung (được tính dựa trên việc count các ma_dich_vu_di_kem).
+
+
+
+
+-- cau 15:
+-- Hiển thi thông tin của tất cả nhân viên bao gồm ma_nhan_vien, ho_ten, ten_trinh_do, ten_bo_phan, so_dien_thoai, dia_chi mới chỉ lập được tối đa 3 hợp đồng từ năm 2020 đến 2021.
+
+
+
+
+-- cau 16:
+-- Xóa những Nhân viên chưa từng lập được hợp đồng nào từ năm 2019 đến năm 2021.
+
+
