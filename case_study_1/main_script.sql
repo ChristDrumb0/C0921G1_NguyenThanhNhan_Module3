@@ -1,7 +1,3 @@
-select *
-from furama_management;
- 
-
 create database furama_management;
 use furama_management;
 CREATE TABLE vi_tri (

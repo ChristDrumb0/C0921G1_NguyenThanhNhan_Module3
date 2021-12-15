@@ -2,7 +2,7 @@
 -- cau 2
 select *
 from furama_management.nhan_vien
-where (ho_ten_nhan_vien like 'T%' or ho_ten_nhan_vien like 'K%' or ho_ten_nhan_vien like 'H%')and  length(ho_ten_nhan_vien) <20;
+where (ho_ten_nhan_vien like 'T%' or ho_ten_nhan_vien like 'K%' or ho_ten_nhan_vien like 'H%')and  char_length(ho_ten_nhan_vien) <20;
 
 -- cau 3
 select *
