@@ -4,7 +4,7 @@ use furama_management;
 -- Hiển thị thông tin ma_hop_dong, ho_ten (nhân viên), ho_ten (khách hàng), so_dien_thoai (khách hàng), ten_dich_vu, so_luong_dich_vu_di_kem (được tính dựa trên việc sum so_luong ở dich_vu_di_kem), tien_dat_coc 
 -- của tất cả các dịch vụ đã từng được khách hàng đặt vào 3 tháng cuối năm 2020 nhưng chưa từng được khách hàng đặt vào 6 tháng đầu năm 2021.
 
-select hd.ma_hop_dong , nv.ho_ten_nhan_vien , kh.ho_ten_khach_hang,kh.so_dien_thoai,dv.ten_dich_vu,sum(hdct.so_luong) 'tong so luong', hd.tien_coc
+select hd.ma_hop_dong , nv.ho_ten_nhan_vien , kh.ho_ten_khach_hang,kh.so_dien_thoai,dv.ten_dich_vu,coalesce(sum(hdct.so_luong)) 'tong so luong', hd.tien_coc
 from hop_dong hd
 left join khach_hang kh on hd.ma_khach_hang = kh.ma_khach_hang
 left join nhan_vien nv on hd.ma_nhan_vien = nv.ma_nhan_vien
@@ -15,7 +15,8 @@ group by hd.ma_hop_dong
 ;
 
 -- cau 13:
--- Hiển thị thông tin các Dịch vụ đi kèm được sử dụng nhiều nhất bởi các Khách hàng đã đặt phòng. (Lưu ý là có thể có nhiều dịch vụ có số lần sử dụng nhiều như nhau).
+-- Hiển thị thông tin các Dịch vụ đi kèm được sử dụng nhiều nhất bởi các Khách hàng đã đặt phòng. 
+-- (Lưu ý là có thể có nhiều dịch vụ có số lần sử dụng nhiều như nhau).
 select dvdk.ma_dich_vu_di_kem,dvdk.ten_dich_di_kem,dvdk.gia,dvdk.don_vi,dvdk.trang_thai,sum(hdct.so_luong) 'so luong'
 from hop_dong_chi_tiet hdct
 join dich_vu_di_kem dvdk on hdct.ma_dich_vu_di_kem = dvdk.ma_dich_vu_di_kem

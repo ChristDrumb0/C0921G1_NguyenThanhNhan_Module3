@@ -3,12 +3,16 @@
 -- tất cả các loại dịch vụ đã từng được khách hàng đặt phòng trong năm 2020 nhưng chưa từng được khách hàng đặt phòng trong năm 2021.
 
 use furama_management;
-select dv.ma_dich_vu 'mã dich vụ', dv.ten_dich_vu 'tên phòng', dv.dien_tich 'diện tích', dv.so_nguoi_toi_da 'số người tối đa' , dv.chi_phi_thue 'chi phí thuê', ldv.ten_loai_dich_vu 'loại phòng'
+select dv.ma_dich_vu 'mã dich vụ', dv.ten_dich_vu 'tên phòng', 
+dv.dien_tich 'diện tích', dv.so_nguoi_toi_da 'số người tối đa' , 
+dv.chi_phi_thue 'chi phí thuê', ldv.ten_loai_dich_vu 'loại phòng'
 from ((hop_dong hd
 join dich_vu dv on hd.ma_dich_vu = dv.ma_dich_vu)
 join loai_dich_vu ldv on dv.ma_loai_dich_vu = ldv.ma_loai_dich_vu)
 WHERE dv.ma_dich_vu 
-	NOT IN (SELECT dv.ma_dich_vu FROM((hop_dong hd JOIN dich_vu dv ON hd.ma_dich_vu = dv.ma_dich_vu)join loai_dich_vu ldv on dv.ma_loai_dich_vu = ldv.ma_loai_dich_vu)
+	NOT IN (SELECT dv.ma_dich_vu FROM((hop_dong hd 
+    JOIN dich_vu dv ON hd.ma_dich_vu = dv.ma_dich_vu)
+    join loai_dich_vu ldv on dv.ma_loai_dich_vu = ldv.ma_loai_dich_vu)
 			WHERE YEAR(hd.ngay_lam_hop_dong) = 2021)
 group by dv.ma_dich_vu
 order by dv.dien_tich desc;  

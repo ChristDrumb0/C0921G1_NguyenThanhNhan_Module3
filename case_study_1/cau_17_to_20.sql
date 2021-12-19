@@ -47,6 +47,9 @@ where year(ngay_lam_hop_dong) = 2020
 group by dvdk.ma_dich_vu_di_kem
 having so_lan_su_dung > 10);
 
+-- select*
+-- from tempor_table
+
 update dich_vu_di_kem
 set gia = (gia*2)
 where ma_dich_vu_di_kem in ( select ma_dich_vu_di_kem from tempor_table);
@@ -55,10 +58,11 @@ drop temporary table tempor_table;
 
 -- cau 20:
 -- Hiển thị thông tin của tất cả các nhân viên và khách hàng có trong hệ thống, thông tin hiển thị bao gồm id (ma_nhan_vien, ma_khach_hang), ho_ten, email, so_dien_thoai, ngay_sinh, dia_chi.
-select ma_khach_hang 'id',ho_ten_khach_hang 'ho_ten', email, so_dien_thoai, ngay_sinh, dia_chi
+select ma_khach_hang 'id',ho_ten_khach_hang 'ho_ten', 
+email, so_dien_thoai, ngay_sinh, dia_chi, 'nhan_vien' as `type`
 from khach_hang
 union all
-select ma_nhan_vien 'id', ho_ten_nhan_vien 'ho_ten', email, so_dien_thoai, ngay_sinh, dia_chi
+select ma_nhan_vien 'id', ho_ten_nhan_vien 'ho_ten', email, so_dien_thoai, ngay_sinh, dia_chi, 'khach_hang' as `type`
 from nhan_vien;
 
 -- cau 21, 22:
