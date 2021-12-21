@@ -1,0 +1,123 @@
+body{
+    font-family: Arial sans-serif;
+
+}
+* {
+    box-sizing: border-box;
+}
+
+[class*="col-"] {
+    float: left;
+    margin: 0 0 5px 0;
+}
+
+/* For mobile phones: */
+[class*="col-"] {
+    width: 100%;
+}
+/* For desktop: */
+@media only screen and (min-width: 768px) {
+
+    .col-1 {width: 8.33%;}
+    .col-2 {width: 16.66%;}
+    .col-3 {width: 25%;}
+    .col-4 {width: 33.33%;}
+    .col-5 {width: 41.66%;}
+    .col-6 {width: 50%;}
+    .col-7 {width: 58.33%;}
+    .col-8 {width: 66.66%;}
+    .col-9 {width: 75%;}
+    .col-10 {width: 83.33%;}
+    .col-11 {width: 91.66%;}
+    .col-12 {width: 100%;}
+}
+/* for landscape */
+/*@media only screen and (orientation: landscape) {*/
+/*    .col-1 {width: 8.33%;}*/
+/*    .col-2 {width: 16.66%;}*/
+/*    .col-3 {width: 25%;}*/
+/*    .col-4 {width: 33.33%;}*/
+/*    .col-5 {width: 41.66%;}*/
+/*    .col-6 {width: 50%;}*/
+/*    .col-7 {width: 58.33%;}*/
+/*    .col-8 {width: 66.66%;}*/
+/*    .col-9 {width: 75%;}*/
+/*    .col-10 {width: 83.33%;}*/
+/*    .col-11 {width: 91.66%;}*/
+/*    .col-12 {width: 100%;}*/
+/*}*/
+
+.row::after{
+    clear: both;
+    display: block;
+    content: "";
+}
+.header h2{
+    background-color: #8d8b8b;
+    margin: 0px;
+    padding: 0px;
+}
+
+#logo{
+    background-color: red;
+    coler: white;
+    height: 100%;
+}
+.m{
+    justify-content: center;
+    background-color: #8d8b8b;
+    height: 40px;
+}
+.menu {
+    position: relative;
+    text-align: center;
+    background-color: #8d8b8b;
+    margin: 0;
+    padding:0;
+    height: 40px;
+}
+.menu li{
+    position: relative;
+    vertical-align: middle;
+    float: left;
+    list-style: none;
+    margin: 0;
+    padding:0;
+}
+.menu li a{
+    width:200px;
+    height: 20px;
+    display: block;
+    text-decoration:none;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 5px;
+    color: #3B5998;
+    border-left: 1px #555555;
+}
+.sidebar_left p{
+    margin: 0;
+    padding: 0;
+}
+.sidebar_left {
+    position: relative;
+    text-align: center;
+    background-color: #8d8b8b;
+}
+.main-content{
+    position: relative;
+    padding: 0 0 0 20px;
+    text-align: center;
+}
+.footer{
+    /*position: fixed;*/
+    /*bottom: 0;*/
+    background-color: #8d8b8b;
+}
+.footer h2{
+    float: left;
+}
+.footer h3{
+    float: right;
+    padding-right: 50px;
+}
