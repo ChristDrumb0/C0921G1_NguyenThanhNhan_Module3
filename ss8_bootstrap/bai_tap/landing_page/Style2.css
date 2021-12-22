@@ -1,0 +1,17 @@
+.list-comp{
+    position: relative;
+    float: left;
+}
+/*body*/
+/*{*/
+/*    background-color: grey;*/
+/*}*/
+.icon1 {
+    text-decoration: none;
+    color: #066bbd;
+    padding-top: 10px;
+}
+.carusel{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}

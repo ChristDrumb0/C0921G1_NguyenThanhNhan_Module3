@@ -1,0 +1,22 @@
+body{
+    font-family: Olson sans-serif;
+
+}
+* {
+    box-sizing: border-box;
+}
+
+div.gallery {
+    border: 1px solid #ccc;
+}
+
+div.gallery:hover {
+    border: 1px solid #777;
+}
+
+div.gallery img {
+    position: relative;
+    text-align: center;
+    width: 90%;
+    height: auto;
+}
