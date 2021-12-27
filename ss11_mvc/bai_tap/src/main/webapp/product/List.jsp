@@ -9,7 +9,14 @@
 <p>
     <a href="/products?action=create">Create new product</a>
 </p>
-<table border="1">
+<div style="position: relative;">
+    <form action="/products?action=search" method="get">
+        <input type="hidden" value="search" name="action">
+    <input type="text" name="search" id="search" placeholder="Search by name" style="float: left">
+    <input type="submit" value="Search product" style="float: left">
+    </form>
+</div>
+<table border="1" style="clear:left; position: relative; margin: 5px 0 5px 0">
     <tr>
         <td>Name</td>
         <td>Email</td>

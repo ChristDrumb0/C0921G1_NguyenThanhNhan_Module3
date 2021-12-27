@@ -12,6 +12,8 @@ public interface Repository {
 
     Product findById(int id);
 
+    List<Product> findByName(String name);
+
     void update(int id, Product product);
 
     void remove(int id);

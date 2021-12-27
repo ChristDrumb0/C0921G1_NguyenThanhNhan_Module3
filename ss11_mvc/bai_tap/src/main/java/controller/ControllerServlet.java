@@ -30,7 +30,7 @@ public class ControllerServlet extends HttpServlet {
                 updateProduct(request,response);
                 break;
             case "delete":
-                deleteCustomer(request,response);
+                deleteProduct(request,response);
                 break;
             default:
 
@@ -38,7 +38,7 @@ public class ControllerServlet extends HttpServlet {
         }
     }
 
-    private void deleteCustomer(HttpServletRequest request, HttpServletResponse response) {
+    private void deleteProduct(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("id"));
         Product product = this.productService.findById(id);
         RequestDispatcher dispatcher;
@@ -116,15 +116,41 @@ public class ControllerServlet extends HttpServlet {
                 showDeleteForm(request,response);
                 break;
             case "view":
-                viewCustomer(request,response);
+                viewProduct(request,response);
                 break;
+            case "search":
+                searchProduct(request,response);
             default:
                 listProduct(request,response);
                 break;
         }
     }
-
-    private void viewCustomer(HttpServletRequest request, HttpServletResponse response) {
+    private  void searchProduct(HttpServletRequest request, HttpServletResponse response) {
+        String name = request.getParameter("search");
+        List<Product> product = this.productService.findByName(name);
+        RequestDispatcher dispatcher;
+        if(product == null){
+            dispatcher = request.getRequestDispatcher("error-404.jsp");
+        } else {
+            request.setAttribute("product", product);
+            dispatcher = request.getRequestDispatcher("product/Search.jsp");
+//            dispatcher = request.getRequestDispatcher("products");
+        }
+        if(product.size()!=0){
+            request.setAttribute("message", null);
+        }
+        else{
+            request.setAttribute("message", "can't find any product");
+        }
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void viewProduct(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("id"));
         Product product = this.productService.findById(id);
         RequestDispatcher dispatcher;
@@ -142,6 +168,8 @@ public class ControllerServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
+
+
 
     private void showDeleteForm(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("id"));

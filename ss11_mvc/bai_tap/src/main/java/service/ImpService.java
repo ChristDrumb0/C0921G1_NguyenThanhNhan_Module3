@@ -41,7 +41,12 @@ public class ImpService implements Service {
             return repo.findById(id);
         }
 
-        @Override
+    @Override
+    public List<Product> findByName(String name) {
+        return repo.findByName(name);
+    }
+
+    @Override
         public void update(int id, Product product) {
 //            products.put(id, product);
             repo.update(id, product);

@@ -36,6 +36,17 @@ public class ImpRepository implements Repository{
     }
 
     @Override
+    public List<Product> findByName(String name) {
+        List<Product> product = new ArrayList<>();
+        for (Map.Entry<Integer, Product> entry : products.entrySet()) {
+//            System.out.println(entry.getKey() + "/" + entry.getValue());
+            if (entry.getValue().getProductName().contains(name)){
+                product.add(entry.getValue()); }
+        }
+        return product;
+    }
+
+    @Override
     public void update(int id, Product product) {
         products.put(id, product);
     }
