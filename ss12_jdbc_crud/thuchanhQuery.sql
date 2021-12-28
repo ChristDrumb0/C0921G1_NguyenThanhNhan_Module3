@@ -13,3 +13,8 @@ insert into users(name, email, country) values('Minh','minh@codegym.vn','Viet Na
 insert into users(name, email, country) values('Kante','kante@che.uk','Kenia');
 insert into users(name, email, country) values('Veloz','veloz@toyota.jp','Japan');
 insert into users(name, email, country) values('Lucifer','lucifer@gmail.com','USA');
+
+
+select *
+from users 
+ORDER BY `name` asc;

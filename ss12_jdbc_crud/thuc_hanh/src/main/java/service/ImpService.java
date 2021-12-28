@@ -20,6 +20,11 @@ public class ImpService implements Service {
     }
 
     @Override
+    public List<User> searchByCountry(String something) {
+        return repo.searchByCountry(something);
+    }
+
+    @Override
     public void insertUser(User user) throws SQLException {
         repo.insertUser(user);
     }
@@ -32,6 +37,11 @@ public class ImpService implements Service {
     @Override
     public List<User> selectAllUsers() {
         return repo.selectAllUsers();
+    }
+
+    @Override
+    public List<User> sortByName(String sortType) {
+        return repo.sortByName(sortType);
     }
 
     @Override

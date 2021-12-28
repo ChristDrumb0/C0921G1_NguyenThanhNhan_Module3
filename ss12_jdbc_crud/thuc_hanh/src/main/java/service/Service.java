@@ -7,11 +7,15 @@ import java.util.List;
 
 public interface Service {
 
+    public List<User> searchByCountry(String something);
+
     public void insertUser(User user) throws SQLException;
 
     public User selectUser(int id);
 
     public List<User> selectAllUsers();
+
+    public List<User> sortByName(String sortType);
 
     public boolean deleteUser(int id) throws SQLException;
 

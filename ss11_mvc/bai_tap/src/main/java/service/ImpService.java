@@ -24,22 +24,22 @@ public class ImpService implements Service {
 //            products.put(6, new Product(6, "Galaxy S20", "Samsung", "899"));
 //        }
 
-        @Override
-        public List<Product> findAll() {
-            return repo.findAll();
-        }
+    @Override
+    public List<Product> findAll() {
+        return repo.findAll();
+    }
 
-        @Override
-        public void save(Product product) {
+    @Override
+    public void save(Product product) {
 //            products.put(product.getId(), product);
-            repo.save(product);
-        }
+        repo.save(product);
+    }
 
-        @Override
-        public Product findById(int id) {
+    @Override
+    public Product findById(int id) {
 //            return products.get(id);
-            return repo.findById(id);
-        }
+        return repo.findById(id);
+    }
 
     @Override
     public List<Product> findByName(String name) {
@@ -47,14 +47,14 @@ public class ImpService implements Service {
     }
 
     @Override
-        public void update(int id, Product product) {
+    public void update(int id, Product product) {
 //            products.put(id, product);
-            repo.update(id, product);
-        }
+        repo.update(id, product);
+    }
 
-        @Override
-        public void remove(int id) {
+    @Override
+    public void remove(int id) {
 //            products.remove(id);
-            repo.remove(id);
-        }
+        repo.remove(id);
+    }
 }

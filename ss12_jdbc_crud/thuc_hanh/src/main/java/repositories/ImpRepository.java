@@ -10,16 +10,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImpRepository implements Repository{
+public class ImpRepository implements Repository {
     private String jdbcURL = "jdbc:mysql://localhost:3306/demo?useSSL=false";
     private String jdbcUsername = "root";
     private String jdbcPassword = "NhanhoMn@ylaso1";
 
     private static final String INSERT_USERS_SQL = "INSERT INTO users (name, email, country) VALUES (?, ?, ?);";
     private static final String SELECT_USER_BY_ID = "select id,name,email,country from users where id =?";
-    private static final String SELECT_ALL_USERS = "select * from users";
+    private static final String SELECT_ALL_USERS = "select * from users ";
+    private static final String SORT_ALL_USERS_ASC = "select * from users ORDER BY `name` asc;";
+    private static final String SORT_ALL_USERS_DESC = "select * from users ORDER BY `name` desc;";
     private static final String DELETE_USERS_SQL = "delete from users where id = ?;";
     private static final String UPDATE_USERS_SQL = "update users set name = ?,email= ?, country =? where id = ?;";
+    private static final String SEARCH_USERS_SQL = "select id,name,email,country from users where country like ?;";
 
     public ImpRepository() {
     }
@@ -37,6 +40,80 @@ public class ImpRepository implements Repository{
             e.printStackTrace();
         }
         return connection;
+    }
+
+    @Override
+    public List<User> searchByCountry(String something) {
+        List<User> users = selectAllUsers();
+        List<User> result = new ArrayList<>();
+        for (User user : users) {
+            if (user.getCountry().toLowerCase().contains(something)) {
+                result.add(user);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public List<User> sortByName(String sort) {
+        List<User> listUser = new ArrayList<>();
+        String sortQ = null;
+        try {
+            switch (sort){
+                case "asc":
+                    sortQ = SORT_ALL_USERS_ASC;
+                    break;
+                case "desc":
+                    sortQ = SORT_ALL_USERS_DESC;
+                    break;
+                default:
+                    sortQ = SELECT_ALL_USERS;
+            }
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sortQ);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String email = rs.getString("email");
+                String country = rs.getString("country");
+                listUser.add(new User(id, name, email, country));
+            }
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return listUser;
+    }
+
+    @Override
+    public List<User> selectAllUsers() {
+        // using try-with-resources to avoid closing resources (boiler plate code)
+        List<User> users = new ArrayList<>();
+        // Step 1: Establishing a Connection
+        try (Connection connection = getConnection();
+
+             // Step 2:Create a statement using connection object
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USERS);) {
+            System.out.println(preparedStatement);
+            // Step 3: Execute the query or update query
+            ResultSet rs = preparedStatement.executeQuery();
+
+            // Step 4: Process the ResultSet object.
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String email = rs.getString("email");
+                String country = rs.getString("country");
+                users.add(new User(id, name, email, country));
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+
+        return users;
     }
 
     @Override
@@ -79,32 +156,6 @@ public class ImpRepository implements Repository{
         return user;
     }
 
-    @Override
-    public List<User> selectAllUsers() {
-        // using try-with-resources to avoid closing resources (boiler plate code)
-        List<User> users = new ArrayList<>();
-        // Step 1: Establishing a Connection
-        try (Connection connection = getConnection();
-
-             // Step 2:Create a statement using connection object
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USERS);) {
-            System.out.println(preparedStatement);
-            // Step 3: Execute the query or update query
-            ResultSet rs = preparedStatement.executeQuery();
-
-            // Step 4: Process the ResultSet object.
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                String email = rs.getString("email");
-                String country = rs.getString("country");
-                users.add(new User(id, name, email, country));
-            }
-        } catch (SQLException e) {
-            printSQLException(e);
-        }
-        return users;
-    }
 
     @Override
     public boolean deleteUser(int id) throws SQLException {
