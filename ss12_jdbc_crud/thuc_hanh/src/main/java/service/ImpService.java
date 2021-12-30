@@ -54,4 +54,50 @@ public class ImpService implements Service {
         return repo.updateUser(user);
     }
 
+
+    //thuc hanh 13 1
+    @Override
+    public User getUserById(int id) {
+        return repo.getUserById(id);
+    }
+
+    @Override
+    public void insertUserStore(User user) throws SQLException {
+        repo.insertUserStore(user);
+    }
+
+    //thuc hanh 13 2
+    public void addUserTransaction(User user, int[] permision){
+        repo.addUserTransaction(user, permision);
+    }
+
+
+    //thục hành 13 3
+    @Override
+    public void insertUpdateWithoutTransaction() {
+        repo.insertUpdateWithoutTransaction();
+    }
+
+    //thục hành 13 4
+    @Override
+    public void insertUpdateUseTransaction() {
+        repo.insertUpdateUseTransaction();
+    }
+
+    //bai tap 13 1
+    @Override
+    public void updateUserStore(User user) throws SQLException {
+        repo.updateUserStore(user);
+    }
+
+    @Override
+    public List<User> viewUserStore() throws SQLException {
+        return repo.viewUserStore();
+    }
+
+    @Override
+    public void deleteUserStore(int id) throws SQLException {
+        repo.deleteUserStore(id);
+    }
+
 }

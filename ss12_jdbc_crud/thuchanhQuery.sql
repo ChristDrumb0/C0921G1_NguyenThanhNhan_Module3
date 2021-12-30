@@ -1,4 +1,4 @@
-CREATE DATABASE demo;
+create DATABASE demo;
 USE demo;
 
 create table users (
@@ -18,3 +18,4 @@ insert into users(name, email, country) values('Lucifer','lucifer@gmail.com','US
 select *
 from users 
 ORDER BY `name` asc;
+
