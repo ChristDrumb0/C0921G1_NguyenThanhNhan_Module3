@@ -3,7 +3,7 @@ package config;
 import javax.servlet.*;
 import java.io.IOException;
 
-public class CharsetFilter {
+public class CharsetFilter implements Filter {
 
     private String encoding;
 
