@@ -82,6 +82,7 @@ CREATE TABLE service_type (
 CREATE TABLE rent_type (
     id INT AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(50) NOT NULL,
+    cost double not null,
     is_delete BIT(1) DEFAULT 0
 );
 create TABLE service (

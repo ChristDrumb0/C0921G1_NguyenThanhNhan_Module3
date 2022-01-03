@@ -2,19 +2,16 @@ package reponsitory.imlement;
 
 import model.*;
 import reponsitory.EmployeeRepo;
-import service.EmployeeSer;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class impEmployeeRepo implements EmployeeRepo {
-    private String jdbcURL = "jdbc:mysql://localhost:3306/casestudy_2";
-    private String jdbcUsername = "root";
-    private String jdbcPassword = "NhanhoMn@ylaso1";
-    private Connection connections;
-
-
+//    private String jdbcURL = "jdbc:mysql://localhost:3306/casestudy_2";
+//    private String jdbcUsername = "root";
+//    private String jdbcPassword = "NhanhoMn@ylaso1";
+//    private ConnectionSQL connections;
     private static final String SELECT_ALL_EMPLOYEE = " select e.id,e.`name`,e.dob,e.gender,e.personal_id,e.salary,e.phone,e.email,e.address, \n " +
             " posi.`name` posiname,edu.`name` eduname,divi.`name` diviname,e.username,e.is_delete\n " +
             " from employee e\n" +
@@ -32,18 +29,18 @@ public class impEmployeeRepo implements EmployeeRepo {
 //    private static final String SEARCH_USERS_SQL = "select id,name,email,country from users where country like ?;";
 
 
-    protected Connection getConnection() {
-        Connection connection = null;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return connection;
-    }
+//    protected ConnectionSQL getConnection() {
+//        ConnectionSQL connection = null;
+//        try {
+//            Class.forName("com.mysql.jdbc.Driver");
+//            connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        return connection;
+//    }
 
     @Override
     public List<Employee> searchByName(String something) {
@@ -71,7 +68,8 @@ public class impEmployeeRepo implements EmployeeRepo {
     @Override
     public List<Employee> listEmployee() {
         List<Employee> employees = new ArrayList<>();
-        try (Connection connection = getConnection();
+        Connection connection = new ConnectionSQL().getConnection();
+        try (
 
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_EMPLOYEE)) {
             System.out.println(preparedStatement);
@@ -115,7 +113,7 @@ public class impEmployeeRepo implements EmployeeRepo {
         } catch (SQLException e) {
             printSQLException(e);
         } finally {
-            close();
+            ConnectionSQL.close();
         }
 
         return employees;
@@ -123,8 +121,8 @@ public class impEmployeeRepo implements EmployeeRepo {
 
     @Override
     public void addEmployee(Employee employee) throws SQLException {
-
-        try (Connection connection = getConnection();
+        Connection connection = new ConnectionSQL().getConnection();
+        try (
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_EMPLOYEE_SQL)) {
 
             preparedStatement.setString(1, employee.getName());
@@ -145,28 +143,34 @@ public class impEmployeeRepo implements EmployeeRepo {
             printSQLException(ignored);
 
         } finally {
-            close();
+            ConnectionSQL.close();
         }
 
     }
 
     @Override
     public boolean deleteEmployee(int id) throws SQLException {
-        boolean rowUpdated;
-        try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(DELETE_USERS_SQL);) {
+        boolean rowUpdated = false;
+        Connection connection = new ConnectionSQL().getConnection();
+        try ( PreparedStatement statement = connection.prepareStatement(DELETE_USERS_SQL);) {
 
             statement.setBoolean(1, true);
             statement.setInt(2, id);
 
             rowUpdated = statement.executeUpdate() > 0;
+        }catch (SQLException e) {
+            printSQLException(e);
+        } finally {
+            ConnectionSQL.close();
         }
         return rowUpdated;
     }
 
     @Override
     public boolean editEmployee(Employee employee) throws SQLException {
-        boolean rowUpdated;
-        try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(UPDATE_USERS_SQL);) {
+        boolean rowUpdated = false;
+        Connection connection = new ConnectionSQL().getConnection();
+        try ( PreparedStatement statement = connection.prepareStatement(UPDATE_USERS_SQL);) {
 // set `name`= ?,dob=? ,gender=?,personal_id=?,salary=?,phone=?,email=?,address=?,position_id=?,education_id=?,division_id=?,username= ? where id = ?;
             statement.setString(1, employee.getName());
             statement.setString(2, employee.getDob());
@@ -183,6 +187,10 @@ public class impEmployeeRepo implements EmployeeRepo {
             statement.setInt(13, employee.getId());
 
             rowUpdated = statement.executeUpdate() > 0;
+        }catch (SQLException e) {
+            printSQLException(e);
+        } finally {
+            ConnectionSQL.close();
         }
         return rowUpdated;
     }
@@ -207,9 +215,9 @@ public class impEmployeeRepo implements EmployeeRepo {
     @Override
     public Employee findEmployeeById(int id) {
         Employee emp =null;
-
+        Connection connection = new ConnectionSQL().getConnection();
         try {
-            Connection connection = getConnection();
+
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_EMPLOYEE_BY_ID);
             preparedStatement.setInt(1, id);
             System.out.println(preparedStatement);
@@ -236,7 +244,7 @@ public class impEmployeeRepo implements EmployeeRepo {
         } catch (SQLException e) {
             printSQLException(e);
         } finally {
-            close();
+            ConnectionSQL.close();
         }
 
         return emp;
@@ -245,7 +253,8 @@ public class impEmployeeRepo implements EmployeeRepo {
     // get employee position
     public List<Position> selectPosition() {
         List<Position> educationList = new ArrayList<>();
-        try (Connection connection = getConnection();
+        Connection connection = new ConnectionSQL().getConnection();
+        try (
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_POSITION)) {
             System.out.println(preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();
@@ -257,7 +266,7 @@ public class impEmployeeRepo implements EmployeeRepo {
         } catch (SQLException e) {
             printSQLException(e);
         } finally {
-            this.close();
+            ConnectionSQL.close();
         }
         return educationList;
     }
@@ -265,7 +274,8 @@ public class impEmployeeRepo implements EmployeeRepo {
     // get employee Education
     public List<Education> selectEducation() {
         List<Education> educationList = new ArrayList<>();
-        try (Connection connection = getConnection();
+        Connection connection = new ConnectionSQL().getConnection();
+        try (
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_EDUCATION)) {
             System.out.println(preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();
@@ -277,7 +287,7 @@ public class impEmployeeRepo implements EmployeeRepo {
         } catch (SQLException e) {
             printSQLException(e);
         } finally {
-            this.close();
+            ConnectionSQL.close();
         }
         return educationList;
     }
@@ -286,7 +296,8 @@ public class impEmployeeRepo implements EmployeeRepo {
     // get employee division
     public List<Division> selectDivision() {
         List<Division> divisionList = new ArrayList<>();
-        try (Connection connection = getConnection();
+        Connection connection = new ConnectionSQL().getConnection();
+        try (
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_DIVISION)) {
             System.out.println(preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();
@@ -298,20 +309,12 @@ public class impEmployeeRepo implements EmployeeRepo {
         } catch (SQLException e) {
             printSQLException(e);
         } finally {
-            this.close();
+            ConnectionSQL.close();
         }
         return divisionList;
     }
 
-    public void close() {
-        try {
-            if (connections != null) {
-                connections.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     public static void main(String[] args) {
         impEmployeeRepo rep = new impEmployeeRepo();

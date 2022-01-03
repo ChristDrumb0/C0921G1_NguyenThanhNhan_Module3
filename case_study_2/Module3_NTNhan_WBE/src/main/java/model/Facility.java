@@ -7,20 +7,30 @@ public abstract class Facility {
     double cost;
     int capacity;
     int rentalType;
+    int serviceType;
 
     public Facility() {
     }
 
-    public Facility(String serviceName, double area, double cost, int capacity, int rentalType) {
+    public Facility(String serviceName, double area, double cost, int capacity, int rentalType,int serviceType) {
         this.serviceName = serviceName;
         this.area = area;
         this.cost = cost;
         this.capacity = capacity;
         this.rentalType = rentalType;
+        this.serviceType = serviceType;
     }
 
     public String getServiceName() {
         return serviceName;
+    }
+
+    public int getServiceType() {
+        return serviceType;
+    }
+
+    public void setServiceType(int serviceType) {
+        this.serviceType = serviceType;
     }
 
     public void setServiceName(String serviceName) {

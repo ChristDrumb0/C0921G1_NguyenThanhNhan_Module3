@@ -193,8 +193,6 @@ public class EmployeeServlet extends HttpServlet {
         request.setAttribute("getDivision", divisionList);
         request.setAttribute("employee",existingEmployee);
 
-
-
         RequestDispatcher dispatcher = request.getRequestDispatcher("/Employee/edit.jsp");
 
         try {

@@ -1,13 +1,13 @@
 package model;
 
-public class CustommerType {
+public class CustomerType {
     int customerTypeId;
     String customerTypeName;
 
-    public CustommerType() {
+    public CustomerType() {
     }
 
-    public CustommerType(int customerTypeId, String customerTypeName) {
+    public CustomerType(int customerTypeId, String customerTypeName) {
         this.customerTypeId = customerTypeId;
         this.customerTypeName = customerTypeName;
     }

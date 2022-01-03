@@ -16,7 +16,6 @@
 </head>
 <body>
 
-$Create$
 <div class="wrapper ">
     <div class="main-panel">
         <jsp:include page="/share/header.jsp"/>
@@ -35,12 +34,12 @@ $Create$
                         <div class="form-group col-12">
                             <label class="col-12 float-left" for="exampleInput1">Employee's Name:</label>
                             <input type="text" name="name" class="form-control col-12 mt-2"
-                                   id="exampleInput1" placeholder="Enter full name" value="${employee.name}">
+                                   id="exampleInput1" placeholder="Enter full name" value="${employee.name}" required="required">
                         </div>
                         <div class="form-group col-12">
                             <label class="col-12 float-left" for="exampleInput2">Date of Birth:</label>
                             <input type="text" name="dob" class="form-control col-12  mt-2"
-                                   id="exampleInput2" placeholder="Enter day of birth" value="${employee.dob}">
+                                   id="exampleInput2" placeholder="Enter day of birth" value="${employee.dob}" required="required">
                             <p style="color: red"> ${msgIdCard} </p>
                         </div>
                         <div class="form-group col-12">
@@ -57,36 +56,36 @@ $Create$
                         <div class="form-group col-12">
                             <label class="col-12 float-left" for="exampleInput4">Personal-Id:</label>
                             <input type="text" name="personalId" class="form-control col-12  mt-2"
-                                   id="exampleInput4" placeholder="Enter personal id" value="${employee.cmnd}">
+                                   id="exampleInput4" placeholder="Enter personal id" value="${employee.cmnd}" required="required">
                             <p style="color: red"> ${msgIdCard} </p>
                         </div>
                         <div class="form-group col-12">
                             <label class="col-12 float-left" for="exampleInput5">Salary :</label>
                             <input type="text" name="salary" class="form-control col-12  mt-2"
-                                   id="exampleInput5" placeholder="Enter salary" value="${employee.salary}">
+                                   id="exampleInput5" placeholder="Enter salary" value="${employee.salary}" required="required">
                             <p style="color: red"> ${msgIdCard} </p>
                         </div>
                         <div class="form-group col-12">
                             <label class="col-12 float-left" for="exampleInput6">Phone:</label>
                             <input type="text" name="phone" class="form-control col-12  mt-2"
-                                   id="exampleInput6" placeholder="Enter phone" value="${employee.phone}">
+                                   id="exampleInput6" placeholder="Enter phone" value="${employee.phone}" required="required">
                             <p style="color: red"> ${msgIdCard} </p>
                         </div>
                         <div class="form-group col-12">
                             <label class="col-12 float-left" for="exampleInput7">Email:</label>
                             <input type="text" name="email" class="form-control col-12  mt-2"
-                                   id="exampleInput7" placeholder="Enter email" value="${employee.email}">
+                                   id="exampleInput7" placeholder="Enter email" value="${employee.email}" required="required">
                             <p style="color: red"> ${msgIdCard} </p>
                         </div>
                         <div class="form-group col-12">
                             <label class="col-12 float-left" for="exampleInput8">Address:</label>
                             <input type="text" name="address" class="form-control col-12  mt-2"
-                                   id="exampleInput8" placeholder="Enter address" value="${employee.address}">
+                                   id="exampleInput8" placeholder="Enter address" value="${employee.address}" required="required">
                             <p style="color: red"> ${msgIdCard} </p>
                         </div>
                         <div class="form-group col-12">
                             <label class="col-12 float-left mt-1" for="exampleInputPosition">Position:</label>
-                            <select name="position" id="exampleInputPosition" class="form-control col-12">
+                            <select name="position" id="exampleInputPosition" class="form-control col-12" required="required">
                                 <option value="">Chose option ...</option>
                                 <c:forEach items="${getPosition}" var="item">
                                     <%--                                     <c:choose>--%>
@@ -103,7 +102,7 @@ $Create$
                         </div>
                         <div class="form-group col-12">
                             <label class="col-12 float-left mt-1" for="exampleInputEducation">Education:</label>
-                            <select name="education" id="exampleInputEducation" class="form-control col-12">
+                            <select name="education" id="exampleInputEducation" class="form-control col-12" required="required">
                                 <option value="">Chose option ...</option>
                                 <c:forEach items="${getEducation}" var="item">
                                     <%--                                    <c:choose>--%>
@@ -121,7 +120,7 @@ $Create$
                         </div>
                         <div class="form-group col-12">
                             <label class="col-12 float-left mt-1" for="exampleInputDivision">Division:</label>
-                            <select name="division" id="exampleInputDivision" class="form-control col-12">
+                            <select name="division" id="exampleInputDivision" class="form-control col-12" required="required">
                                 <option value="">Chose option ...</option>
                                 <c:forEach items="${getDivision}" var="item">
                                     <%--                                    <c:choose>--%>
@@ -162,6 +161,7 @@ $Create$
             </div>
         </div>
         <%-- Footer --%>
+        <jsp:include page="/share/footer.jsp"/>
     </div>
 </div>
 

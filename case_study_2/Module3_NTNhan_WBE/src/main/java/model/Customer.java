@@ -2,16 +2,16 @@ package model;
 
 public class Customer extends Person{
     String type;
-    String address;
+
 
 
     public Customer() {
     }
 
-    public Customer(int id, String name, String dob, String gender, String cmnd, String phone, String email, String address, String type, String address1) {
+    public Customer(int id, String name, String dob, String gender, String cmnd, String phone, String email, String address, String type) {
         super(id, name, dob, gender, cmnd, phone, email, address);
         this.type = type;
-        this.address = address1;
+
     }
 
     public String getType() {
@@ -22,17 +22,17 @@ public class Customer extends Person{
         this.type = type;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
+//    public String getAddress() {
+//        return address;
+//    }
+//
+//    public void setAddress(String address) {
+//        this.address = address;
+//    }
 
     @Override
     public String toString() {
-        return "Customer{" +
+        return "Customer{" + super.toString() +
                 "type=" + type +
                 ", address='" + address + '\'' +
                 ", name='" + name + '\'' +

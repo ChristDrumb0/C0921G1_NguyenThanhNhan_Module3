@@ -38,8 +38,8 @@
                     <div class="navbar-nav mr-auto py-0">
                         <a href="/home.jsp" class="nav-item nav-link active1">Home</a>
                         <a href="/employee" class="nav-item nav-link active2">Employee</a>
-                        <a href="" class="nav-item nav-link active3">Customer</a>
-                        <a href="" class="nav-item nav-link active4">Service</a>
+                        <a href="/customer" class="nav-item nav-link active3">Customer</a>
+                        <a href="/facility" class="nav-item nav-link active4">Facility</a>
                         <a href="" class="nav-item nav-link active5">Contract</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0">
@@ -78,7 +78,7 @@
 <%--                        +Add new--%>
 <%--                    </button>--%>
 <%--                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">--%>
-<%--                        <li><a class="dropdown-item" href="/Employee/create.jsp">Employee</a></li>--%>
+<%--                        <li><a class="dropdown-item" href="/Employee/createHouse.jsp">Employee</a></li>--%>
 <%--                        <li><a class="dropdown-item" href="#">Customer</a></li>--%>
 <%--                        <li><a class="dropdown-item" href="#">Service</a></li>--%>
 <%--                        <li><a class="dropdown-item" href="#">Contract</a></li>--%>
