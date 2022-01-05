@@ -4,7 +4,6 @@ public class Customer extends Person{
     String type;
 
 
-
     public Customer() {
     }
 
@@ -22,13 +21,6 @@ public class Customer extends Person{
         this.type = type;
     }
 
-//    public String getAddress() {
-//        return address;
-//    }
-//
-//    public void setAddress(String address) {
-//        this.address = address;
-//    }
 
     @Override
     public String toString() {

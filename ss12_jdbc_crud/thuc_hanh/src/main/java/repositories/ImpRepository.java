@@ -197,9 +197,7 @@ public class ImpRepository implements Repository {
             callableStatement.setString(2, user.getName());
             callableStatement.setString(3, user.getEmail());
             callableStatement.setString(4, user.getCountry());
-
             callableStatement.executeQuery();
-
 
         } catch (SQLException e) {
 

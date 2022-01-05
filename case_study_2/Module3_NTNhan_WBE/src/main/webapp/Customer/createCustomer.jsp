@@ -42,7 +42,7 @@
                         </div>
                         <div class="form-group col-12">
                             <label class="col-12 float-left" for="exampleInput2">Date of Birth:</label>
-                            <input type="text" name="dob" class="form-control col-12  mt-2"
+                            <input type="date" name="dob" class="form-control col-12  mt-2"
                                    id="exampleInput2" placeholder="Enter day of birth" value="${customer.dob}" required="required">
                             <p style="color: red"> ${msgDate} </p>
                         </div>

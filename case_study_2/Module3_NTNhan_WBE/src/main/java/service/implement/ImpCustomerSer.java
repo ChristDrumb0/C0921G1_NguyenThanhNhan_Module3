@@ -65,7 +65,7 @@ public class ImpCustomerSer implements CustomerSer {
         if(Validate.regexEmail(customer.getEmail())){
             mesMap.put("emailmsg","Email is not valid");
         }
-        if(Validate.regexDate(customer.getDob())){
+        if(Validate.dateValid(customer.getDob())){
             mesMap.put("datemsg","Date of Birth is not valid");
         }
         if(mesMap.isEmpty()){

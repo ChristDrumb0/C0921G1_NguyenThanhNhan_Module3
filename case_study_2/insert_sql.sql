@@ -91,6 +91,13 @@ select c.id,c.`name`,c.dob,c.gender,c.personal_id,c.phone,c.email,c.address,ct.`
 from customer c
 left join customer_type ct on ct.id = c.customer_type_idusers;
 
+-- search Customer
+select c.id,c.`name`,c.dob,c.gender,c.personal_id,c.phone,c.email,c.address,c.customer_type_id
+from customer c
+-- left join customer_type ct on ct.id = c.customer_type_id
+where c.`name` like "%l%";
+
+
 
 
 

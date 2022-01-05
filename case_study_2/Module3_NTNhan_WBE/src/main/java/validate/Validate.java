@@ -1,5 +1,9 @@
 package validate;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -60,6 +64,27 @@ public class Validate {
         }
         return false;
     }
+    public static boolean dateValid(String date) {
+
+        boolean valid = false;
+
+        try {
+
+            // ResolverStyle.STRICT for 30, 31 days checking, and also leap year.
+            LocalDate.parse(date,
+                    DateTimeFormatter.ofPattern("uuuu-MM-dd")
+                            .withResolverStyle(ResolverStyle.STRICT)
+            );
+            valid = false;
+
+        } catch (DateTimeParseException e) {
+//            e.printStackTrace();
+            valid = true;
+
+        }
+
+        return valid;
+    }
     public static boolean regexCustomerId(String idCard)  {
         pattern = Pattern.compile(REGEX_CUSTOMER_ID);
         matcher = pattern.matcher(idCard);
@@ -79,7 +104,9 @@ public class Validate {
         return false;
     }
 
+    public static void main(String[] args) {
 
+    }
 
 
 
