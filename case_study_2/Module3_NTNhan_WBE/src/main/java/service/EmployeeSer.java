@@ -4,6 +4,7 @@ import model.Employee;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 public interface EmployeeSer {
 
@@ -11,9 +12,9 @@ public interface EmployeeSer {
 
     public List<Employee> listEmployee();
 
-    public void addEmployee(Employee employee) throws SQLException;
+    public Map<String,String> addEmployee(Employee employee) throws SQLException;
     public boolean deleteEmployee(int id) throws SQLException;
-    public boolean editEmployee(Employee employee) throws SQLException;
+    public Map<String,String> editEmployee(Employee employee) throws SQLException;
 
     public Employee findEmployeeById(int id);
 

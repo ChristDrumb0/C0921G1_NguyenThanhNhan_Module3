@@ -12,11 +12,14 @@
         text {
             font-size: 15px;
         }
+        .navbar-light .navbar-nav .nav-link:hover,
+        .navbar-light .navbar-nav .nav-link.active2 {
+            color: #D19C97;
+        }
     </style>
 </head>
 <body>
 
-$Edit$
 <div class="wrapper ">
     <div class="main-panel">
         <jsp:include page="/share/header.jsp"/>
@@ -35,66 +38,67 @@ $Edit$
                         <div class="form-group col-12">
                             <label class="col-12 float-left" for="exampleInput1">Employee's Name:</label>
                             <input type="text" name="name" class="form-control col-12 mt-2"
-                                   id="exampleInput1" placeholder="Enter full name" value="${employee.name}">
+                                   id="exampleInput1" placeholder="Enter full name" value="${employee.name}" required="required">
+                            <p style="color: red"> ${msgName} </p>
                         </div>
                         <div class="form-group col-12">
                             <label class="col-12 float-left" for="exampleInput2">Date of Birth:</label>
                             <input type="text" name="dob" class="form-control col-12  mt-2"
-                                   id="exampleInput2" placeholder="Enter day of birth" value="${employee.dob}">
-                            <p style="color: red"> ${msgIdCard} </p>
+                                   id="exampleInput2" placeholder="Enter day of birth" value="${employee.dob}" required="required">
+                            <p style="color: red"> ${msgDate} </p>
                         </div>
                         <div class="form-group col-12">
                             <label class="col-12 float-left" for="exampleInput3">Gender :</label>
 
-                            <select name="gender" id="exampleInput3" class="form-control col-12  mt-2">
-                                <option value="0">Female</option>
-                                <option value="1">Male</option>
+                            <select name="gender" id="exampleInput3" class="form-control col-12  mt-2" required="required">
+                                <option value="${employee.gender}">Female</option>
+                                <option value="${employee.gender}">Male</option>
 
                             </select>
-                            <p style="color: red"> ${msgIdCard} </p>
+<%--                            <p style="color: red"> ${msgIdCard} </p>--%>
                         </div>
 
                         <div class="form-group col-12">
                             <label class="col-12 float-left" for="exampleInput4">Personal-Id:</label>
                             <input type="text" name="personalId" class="form-control col-12  mt-2"
-                                   id="exampleInput4" placeholder="Enter personal id" value="${employee.cmnd}">
-                            <p style="color: red"> ${msgIdCard} </p>
+                                   id="exampleInput4" placeholder="Enter personal id" value="${employee.cmnd}" required="required">
+                            <p style="color: red"> ${msgPersonalId} </p>
                         </div>
                         <div class="form-group col-12">
                             <label class="col-12 float-left" for="exampleInput5">Salary :</label>
                             <input type="text" name="salary" class="form-control col-12  mt-2"
-                                   id="exampleInput5" placeholder="Enter salary" value="${employee.salary}">
-                            <p style="color: red"> ${msgIdCard} </p>
+                                   id="exampleInput5" placeholder="Enter salary" value="${employee.salary}" required="required">
+<%--                            <p style="color: red"> ${msgIdCard} </p>--%>
                         </div>
                         <div class="form-group col-12">
                             <label class="col-12 float-left" for="exampleInput6">Phone:</label>
                             <input type="text" name="phone" class="form-control col-12  mt-2"
-                                   id="exampleInput6" placeholder="Enter phone" value="${employee.phone}">
-                            <p style="color: red"> ${msgIdCard} </p>
+                                   id="exampleInput6" placeholder="Enter phone" value="${employee.phone}" required="required">
+                            <p style="color: red"> ${msgPhone} </p>
                         </div>
                         <div class="form-group col-12">
                             <label class="col-12 float-left" for="exampleInput7">Email:</label>
                             <input type="text" name="email" class="form-control col-12  mt-2"
-                                   id="exampleInput7" placeholder="Enter email" value="${employee.email}">
-                            <p style="color: red"> ${msgIdCard} </p>
+                                   id="exampleInput7" placeholder="Enter email" value="${employee.email}" required="required">
+                            <p style="color: red"> ${msgEmail} </p>
                         </div>
                         <div class="form-group col-12">
                             <label class="col-12 float-left" for="exampleInput8">Address:</label>
                             <input type="text" name="address" class="form-control col-12  mt-2"
-                                   id="exampleInput8" placeholder="Enter address" value="${employee.address}">
-                            <p style="color: red"> ${msgIdCard} </p>
+                                   id="exampleInput8" placeholder="Enter address" value="${employee.address}"  required="required">
+<%--                            <p style="color: red"> ${msgAdress} </p>--%>
                         </div>
                         <div class="form-group col-12">
                             <label class="col-12 float-left mt-1" for="exampleInputPosition">Position:</label>
-                            <select name="position" id="exampleInputPosition" class="form-control col-12">
+                            <select name="position" id="exampleInputPosition" class="form-control col-12" required="required">
                                 <option value="">Chose option ...</option>
                                 <c:forEach items="${getPosition}" var="item">
 <%--                                    <c:choose>--%>
 <%--                                        <c:when test="${item.id.equal(employee.position)}">--%>
-<%--                                            <option value="${item.id}" selected> ${item.name} </option>--%>
+<%--                                            <option value="${item.positionId}" selected> ${item.positionName} </option>--%>
 <%--                                        </c:when>--%>
 <%--                                        <c:otherwise>--%>
-<%--                                            <option value="${item.id}"> ${item.name} </option>--%>
+<%--                                            <option value="${item.positionId}"> ${item.positionName} </option>--%>
 <%--                                        </c:otherwise>--%>
 <%--                                    </c:choose>--%>
                                     <option value="${item.positionId}"> ${item.positionName} </option>
@@ -103,7 +107,7 @@ $Edit$
                         </div>
                         <div class="form-group col-12">
                             <label class="col-12 float-left mt-1" for="exampleInputEducation">Education:</label>
-                            <select name="education" id="exampleInputEducation" class="form-control col-12">
+                            <select name="education" id="exampleInputEducation" class="form-control col-12" required="required">
                                 <option value="">Chose option ...</option>
                                 <c:forEach items="${getEducation}" var="item">
                                     <%--                                    <c:choose>--%>
@@ -121,7 +125,7 @@ $Edit$
                         </div>
                         <div class="form-group col-12">
                             <label class="col-12 float-left mt-1" for="exampleInputDivision">Division:</label>
-                            <select name="division" id="exampleInputDivision" class="form-control col-12">
+                            <select name="division" id="exampleInputDivision" class="form-control col-12" required="required">
                                 <option value="">Chose option ...</option>
                                 <c:forEach items="${getDivision}" var="item">
                                     <%--                                    <c:choose>--%>
@@ -139,7 +143,7 @@ $Edit$
                         <div class="form-group col-12">
                             <label class="col-12 float-left" for="exampleInput12">Username :</label>
 
-                            <select name="username" id="exampleInput12" class="form-control col-12  mt-2">
+                            <select name="username" id="exampleInput12" class="form-control col-12  mt-2" required="required">
                                 <option value="view">Normal level</option>
                                 <option value="hr">HR level</option>
                                 <option value="admin">Admin level</option>

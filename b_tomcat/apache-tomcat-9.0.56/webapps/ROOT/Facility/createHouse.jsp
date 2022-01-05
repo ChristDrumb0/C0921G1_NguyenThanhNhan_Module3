@@ -22,7 +22,7 @@
 </head>
 <body>
 
-$Create$
+
 <div class="wrapper ">
     <div class="main-panel">
         <jsp:include page="/share/header.jsp"/>

@@ -86,6 +86,10 @@ value
 ('Diamond'),
 ('SuperUltraMega_Vip');
 
+-- select Customer
+select c.id,c.`name`,c.dob,c.gender,c.personal_id,c.phone,c.email,c.address,ct.`name` ctname
+from customer c
+left join customer_type ct on ct.id = c.customer_type_idusers;
 
 
 

@@ -17,16 +17,54 @@ public class ImpCustomerRepo implements CustomerRepo {
             " from customer c " +
             " left join customer_type ct on ct.id = c.customer_type_id; ";
     private static final String INSERT_CUSTOMER_SQL = " INSERT INTO customer (`name`,dob,gender,personal_id,phone,email,address,customer_type_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
-
     private static final String SELECT_CUSTOMER_BY_ID = " select c.id,c.`name`,c.dob,c.gender,c.personal_id,c.phone,c.email,c.address,ct.`name` ctname from customer c left join customer_type ct on ct.id = c.customer_type_id where c.id = ?; ";
     private static final String DELETE_CUSTOMER_SQL = "update customer set is_delete = ? where id = ?;";
     private static final String UPDATE_CUSTOMER_SQL = " update customer set `name`= ?,dob=? ,gender=?,personal_id=?,phone=?,email=?,address=?,customer_type_id=? where id = ?; ";
     private static final String SELECT_CUSTOMER_TYPE = "select * FROM customer_type";
+    private static final String SEARCH_CUSTOMER_SQL = " select c.id,c.`name`,c.dob,c.gender,c.personal_id,c.phone,c.email,c.address,c.customer_type_id from customer c where c.`name` like ?; ";
 
 
 
     @Override
     public List<Customer> searchByName(String name) {
+        List<Customer> customers = new ArrayList<>();
+        Customer cus =null;
+        Connection connection = new ConnectionSQL().getConnection();
+        try {
+
+            PreparedStatement preparedStatement = connection.prepareStatement(SEARCH_CUSTOMER_SQL);
+            preparedStatement.setString(1, "%"+name+"%");
+            System.out.println(preparedStatement);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                cus = new Customer();
+                cus.setId(rs.getInt("id"));
+                cus.setName(rs.getString("name"));
+                cus.setDob(rs.getString("dob"));
+                cus.setGender(getGender(rs.getInt("gender")));
+                cus.setCmnd(rs.getString("personal_id"));
+                cus.setPhone(rs.getString("phone"));
+                cus.setEmail(rs.getString("email"));
+                cus.setAddress(rs.getString("address"));
+                cus.setType(getCustomerType(Integer.parseInt(rs.getString("customer_type_id"))));
+                customers.add(cus);
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        } finally {
+            ConnectionSQL.close();
+        }
+
+        return customers;
+    }
+    private String getCustomerType(int typeId) {
+        List<CustomerType> customerType = selectCustomerType();
+        for (CustomerType cusType : customerType){
+            if (typeId == cusType.getCustomerTypeId()) {
+                return cusType.getCustomerTypeName();
+            }
+        }
         return null;
     }
 

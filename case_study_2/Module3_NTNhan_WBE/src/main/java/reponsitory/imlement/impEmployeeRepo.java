@@ -29,19 +29,6 @@ public class impEmployeeRepo implements EmployeeRepo {
 //    private static final String SEARCH_USERS_SQL = "select id,name,email,country from users where country like ?;";
 
 
-//    protected ConnectionSQL getConnection() {
-//        ConnectionSQL connection = null;
-//        try {
-//            Class.forName("com.mysql.jdbc.Driver");
-//            connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        return connection;
-//    }
-
     @Override
     public List<Employee> searchByName(String something) {
 

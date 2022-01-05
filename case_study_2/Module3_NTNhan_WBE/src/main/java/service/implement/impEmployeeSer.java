@@ -4,9 +4,12 @@ import model.Employee;
 import reponsitory.EmployeeRepo;
 import reponsitory.imlement.impEmployeeRepo;
 import service.EmployeeSer;
+import validate.Validate;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class impEmployeeSer implements EmployeeSer {
     EmployeeRepo repo = new impEmployeeRepo();
@@ -21,8 +24,30 @@ public class impEmployeeSer implements EmployeeSer {
     }
 
     @Override
-    public void addEmployee(Employee employee) throws SQLException {
-        repo.addEmployee(employee);
+    public Map<String,String> addEmployee(Employee employee) throws SQLException {
+
+//        if(Validate.regexName(employee.getName())){
+//            mesMap.put("namemsg","Invalid Name, capitalize the first letter");
+//        }
+        Map<String,String> mesMap = new HashMap<>();
+        if(Validate.regexPersonalId(employee.getCmnd())){
+            mesMap.put("personalIdmsg","Personal Id mush had 9 or 12 digit");
+        }
+        if(Validate.regexPhone(employee.getPhone())){
+            mesMap.put("phonemsg","Phone must be: 090xxxxxxx or 091xxxxxxx or (84)+90xxxxxxx or (84)+91xxxxxxx");
+        }
+        if(Validate.regexEmail(employee.getEmail())){
+            mesMap.put("emailmsg","Email is not valid");
+        }
+        if(Validate.regexDate(employee.getDob())){
+            mesMap.put("datemsg","Date of Birth is not valid");
+        }
+        if(mesMap.isEmpty()){
+            repo.addEmployee(employee);
+        }
+
+        return mesMap;
+
     }
 
     @Override
@@ -31,8 +56,29 @@ public class impEmployeeSer implements EmployeeSer {
     }
 
     @Override
-    public boolean editEmployee(Employee employee) throws SQLException {
-        return repo.editEmployee(employee);
+    public Map<String,String> editEmployee(Employee employee) throws SQLException {
+        Map<String,String> mesMap = new HashMap<>();
+//
+//        if(Validate.regexName(employee.getName())){
+//            mesMap.put("namemsg","Invalid Name, capitalize the first letter");
+//        }
+        if(Validate.regexPersonalId(employee.getCmnd())){
+            mesMap.put("personalIdmsg","Personal Id mush had 9 or 12 digit");
+        }
+        if(Validate.regexPhone(employee.getPhone())){
+            mesMap.put("phonemsg","Phone must be: 090xxxxxxx or 091xxxxxxx or (84)+90xxxxxxx or (84)+91xxxxxxx");
+        }
+        if(Validate.regexEmail(employee.getEmail())){
+            mesMap.put("emailmsg","Email is not valid");
+        }
+        if(Validate.regexDate(employee.getDob())){
+            mesMap.put("datemsg","Date of Birth is not valid");
+        }
+        if(mesMap.isEmpty()){
+            repo.editEmployee(employee);
+        }
+
+        return mesMap;
     }
 
     @Override

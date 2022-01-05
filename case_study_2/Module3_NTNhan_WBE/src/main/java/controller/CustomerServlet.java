@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "CustomerServlet", urlPatterns = {"/customer"})
 public class CustomerServlet extends HttpServlet {
@@ -39,34 +40,30 @@ public class CustomerServlet extends HttpServlet {
     } //doPost
 
     private void createCustomer(HttpServletRequest request, HttpServletResponse response) {
-//        String msg = null;
-//        boolean flag = false;
         Customer customer = new Customer();
 //      name,dob,gender,personalId,phone,email,address,customerType
         customer.setName(request.getParameter("name"));
         customer.setDob(request.getParameter("dob"));
         customer.setGender( request.getParameter("gender"));
         customer.setCmnd(request.getParameter("personalId"));
-//        if (Validate.regexIdCard(request.getParameter("personalId"))) {
-//            msg = "Id Card not match";
-//            flag = true;
-//        };
         customer.setPhone( request.getParameter("phone"));
         customer.setEmail( request.getParameter("email"));
         customer.setAddress( request.getParameter("address"));
         customer.setType( request.getParameter("customerType"));
-
-
         try {
-//            if (flag) {
-////                request.setAttribute("msgIdCard", msg);
-//                request.setAttribute("customer", customer);
-//                showCustomerCreate(request, response);
-//            } else {
-            customerSer.addCustomer(customer);
-            response.sendRedirect("/customer");
-//            }
-        } catch (SQLException | IOException throwables) {
+            Map<String,String> messageMap = customerSer.addCustomer(customer);
+            if (!messageMap.isEmpty()) {
+//                request.setAttribute("msgName", messageMap.get("namemsg"));
+                request.setAttribute("msgPersonalId", messageMap.get("personalIdmsg"));
+                request.setAttribute("msgPhone", messageMap.get("phonemsg"));
+                request.setAttribute("msgDate", messageMap.get("datemsg"));
+                request.setAttribute("msgEmail", messageMap.get("emailmsg"));
+                request.setAttribute("customer", customer);
+                showCustomerCreate(request, response);
+            } else {
+                response.sendRedirect("/customer");
+            }
+        } catch (SQLException | IOException | ServletException throwables) {
             throwables.printStackTrace();
         }
     }
@@ -79,25 +76,24 @@ public class CustomerServlet extends HttpServlet {
         customer.setDob(request.getParameter("dob"));
         customer.setGender( request.getParameter("gender"));
         customer.setCmnd(request.getParameter("personalId"));
-//        if (Validate.regexIdCard(request.getParameter("personalId"))) {
-//            msg = "Id Card not match";
-//            flag = true;
-//        };
         customer.setPhone( request.getParameter("phone"));
         customer.setEmail( request.getParameter("email"));
         customer.setAddress( request.getParameter("address"));
         customer.setType( request.getParameter("customerType"));
-
         try {
-//            if (flag) {
-////                request.setAttribute("msgIdCard", msg);
-//                request.setAttribute("customer", customer);
-//                showCustomerCreate(request, response);
-//            } else {
-            customerSer.editCustomer(customer);
-            response.sendRedirect("/customer");
-//            }
-        } catch (SQLException | IOException throwables) {
+            Map<String,String> messageMap = customerSer.editCustomer(customer);
+            if (!messageMap.isEmpty()) {
+//                request.setAttribute("msgName", messageMap.get("namemsg"));
+                request.setAttribute("msgPersonalId", messageMap.get("personalIdmsg"));
+                request.setAttribute("msgPhone", messageMap.get("phonemsg"));
+                request.setAttribute("msgDate", messageMap.get("datemsg"));
+                request.setAttribute("msgEmail", messageMap.get("emailmsg"));
+                request.setAttribute("customer", customer);
+                showCustomerEdit(request, response);
+            } else {
+                response.sendRedirect("/customer");
+            }
+        } catch (SQLException | IOException | ServletException throwables) {
             throwables.printStackTrace();
         }
 
@@ -121,7 +117,7 @@ public class CustomerServlet extends HttpServlet {
                     deleteCustomer(request, response);
                     break;
                 case "search":
-//                    searchCustomer(request, response);
+                    searchCustomer(request, response);
                     break;
                 default:
                     listCustomer(request, response);
@@ -181,6 +177,14 @@ public class CustomerServlet extends HttpServlet {
 
     }
 
+    private void searchCustomer(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException, ServletException {
+        String something = request.getParameter("search");
+        List<Customer> listSearch = customerSer.searchByName(something);
+        request.setAttribute("listCustomer", listSearch);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Customer/listCustomer.jsp");
+        dispatcher.forward(request, response);
+    }
 
 
 

@@ -12,6 +12,10 @@
         text {
             font-size: 15px;
         }
+        .navbar-light .navbar-nav .nav-link:hover,
+        .navbar-light .navbar-nav .nav-link.active3 {
+            color: #D19C97;
+        }
     </style>
 </head>
 <body>
@@ -40,7 +44,7 @@
                             <label class="col-12 float-left" for="exampleInput2">Date of Birth:</label>
                             <input type="text" name="dob" class="form-control col-12  mt-2"
                                    id="exampleInput2" placeholder="Enter day of birth" value="${customer.dob}" required="required">
-                            <p style="color: red"> ${msgIdCard} </p>
+                            <p style="color: red"> ${msgDate} </p>
                         </div>
                         <div class="form-group col-12">
                             <label class="col-12 float-left" for="exampleInput3">Gender :</label>
@@ -57,19 +61,19 @@
                             <label class="col-12 float-left" for="exampleInput4">Personal-Id:</label>
                             <input type="text" name="personalId" class="form-control col-12  mt-2"
                                    id="exampleInput4" placeholder="Enter personal id" value="${customer.cmnd}" required="required">
-                            <p style="color: red"> ${msgIdCard} </p>
+                            <p style="color: red"> ${msgPersonalId} </p>
                         </div>
                         <div class="form-group col-12">
                             <label class="col-12 float-left" for="exampleInput6">Phone:</label>
                             <input type="text" name="phone" class="form-control col-12  mt-2"
                                    id="exampleInput6" placeholder="Enter phone" value="${customer.phone}" required="required">
-                            <p style="color: red"> ${msgIdCard} </p>
+                            <p style="color: red"> ${msgPhone} </p>
                         </div>
                         <div class="form-group col-12">
                             <label class="col-12 float-left" for="exampleInput7">Email:</label>
                             <input type="text" name="email" class="form-control col-12  mt-2"
                                    id="exampleInput7" placeholder="Enter email" value="${customer.email}" required="required">
-                            <p style="color: red"> ${msgIdCard} </p>
+                            <p style="color: red"> ${msgEmail} </p>
                         </div>
                         <div class="form-group col-12">
                             <label class="col-12 float-left" for="exampleInput8">Address:</label>

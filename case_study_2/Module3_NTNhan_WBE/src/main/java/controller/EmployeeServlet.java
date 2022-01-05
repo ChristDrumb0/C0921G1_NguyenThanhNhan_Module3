@@ -6,6 +6,7 @@ import reponsitory.EmployeeRepo;
 import reponsitory.imlement.impEmployeeRepo;
 import service.EmployeeSer;
 import service.implement.impEmployeeSer;
+import validate.Validate;
 
 
 import javax.servlet.RequestDispatcher;
@@ -17,11 +18,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "EmployeeServlet", urlPatterns = "/employee")
 public class EmployeeServlet extends HttpServlet {
     EmployeeSer employeeSer = new impEmployeeSer();
     EmployeeRepo employeeRepo = new impEmployeeRepo();
+//    Validate validate = new Validate();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         if (action == null) {
@@ -40,18 +43,12 @@ public class EmployeeServlet extends HttpServlet {
         }
     }//do Post
     private void createEmployee(HttpServletRequest request, HttpServletResponse response) {
-//        String msg = null;
-//        boolean flag = false;
         Employee employee = new Employee();
 //      name,dob,gender,personalId,salary,phone,email,address,position,education,division,username
         employee.setName(request.getParameter("name"));
         employee.setDob(request.getParameter("dob"));
         employee.setGender( request.getParameter("gender"));
         employee.setCmnd(request.getParameter("personalId"));
-//        if (Validate.regexIdCard(request.getParameter("personalId"))) {
-//            msg = "Id Card not match";
-//            flag = true;
-//        };
         employee.setSalary( Double.parseDouble(request.getParameter("salary")));
         employee.setPhone( request.getParameter("phone"));
         employee.setEmail( request.getParameter("email"));
@@ -62,20 +59,26 @@ public class EmployeeServlet extends HttpServlet {
         employee.setUsername( request.getParameter("username"));
 
         try {
-//            if (flag) {
-////                request.setAttribute("msgIdCard", msg);
-//                request.setAttribute("employee", employee);
-//                showEmployeeCreate(request, response);
-//            } else {
-                employeeSer.addEmployee(employee);
+            Map<String,String> messageMap = employeeSer.addEmployee(employee);
+            if (!messageMap.isEmpty()) {
+//                request.setAttribute("msgName", messageMap.get("namemsg"));
+                request.setAttribute("msgPersonalId", messageMap.get("personalIdmsg"));
+                request.setAttribute("msgPhone", messageMap.get("phonemsg"));
+                request.setAttribute("msgDate", messageMap.get("datemsg"));
+                request.setAttribute("msgEmail", messageMap.get("emailmsg"));
+                request.setAttribute("employee", employee);
+                showEmployeeCreate(request, response);
+            } else {
+
                 response.sendRedirect("/employee");
-//            }
-        } catch (SQLException | IOException throwables) {
+            }
+        } catch (SQLException | IOException | ServletException throwables) {
             throwables.printStackTrace();
         }
     }
 
     private void updateEmployee(HttpServletRequest request, HttpServletResponse response) {
+
         Employee employee = new Employee();
 //      name,dob,gender,personalId,salary,phone,email,address,position,education,division,username
         employee.setId(Integer.parseInt(request.getParameter("id")));
@@ -83,10 +86,6 @@ public class EmployeeServlet extends HttpServlet {
         employee.setDob(request.getParameter("dob"));
         employee.setGender( request.getParameter("gender"));
         employee.setCmnd(request.getParameter("personalId"));
-//        if (Validate.regexIdCard(request.getParameter("personalId"))) {
-//            msg = "Id Card not match";
-//            flag = true;
-//        };
         employee.setSalary( Double.parseDouble(request.getParameter("salary")));
         employee.setPhone( request.getParameter("phone"));
         employee.setEmail( request.getParameter("email"));
@@ -97,15 +96,20 @@ public class EmployeeServlet extends HttpServlet {
         employee.setUsername( request.getParameter("username"));
 
         try {
-//            if (flag) {
-////                request.setAttribute("msgIdCard", msg);
-//                request.setAttribute("employee", employee);
-//                showEmployeeCreate(request, response);
-//            } else {
-            employeeSer.editEmployee(employee);
+            Map<String,String> messageMap = employeeSer.editEmployee(employee);
+            if (!messageMap.isEmpty()) {
+//                request.setAttribute("msgName", messageMap.get("namemsg"));
+                request.setAttribute("msgPersonalId", messageMap.get("personalIdmsg"));
+                request.setAttribute("msgPhone", messageMap.get("phonemsg"));
+                request.setAttribute("msgDate", messageMap.get("datemsg"));
+                request.setAttribute("msgEmail", messageMap.get("emailmsg"));
+                request.setAttribute("employee", employee);
+                showEmployeeEdit(request, response);
+            } else {
+
             response.sendRedirect("/employee");
-//            }
-        } catch (SQLException | IOException throwables) {
+            }
+        } catch (SQLException | IOException | ServletException throwables) {
             throwables.printStackTrace();
         }
 
